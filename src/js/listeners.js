@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 //Detect click and amalgamate newsletter in local storage
-
 chrome.extension.onRequest.addListener(
   function(connectionInfo) {
     // Push to local storage
