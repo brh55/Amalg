@@ -22,7 +22,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('bower', function () {
-    gulp.src('./src/*.html')
+    gulp.src(['src/*.html', 'src/**/*.html'])
         .pipe(wiredep(config.wiredepConfigs))
         .pipe(gulp.dest('dist/'));
 });
@@ -32,12 +32,19 @@ gulp.task('assets', function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('scripts', function () {
-    return gulp.src(['src/js/*.js', 'src/js/**/*.js'])
+gulp.task('scripts', ['unique-scripts'], function () {
+    return gulp.src(['src/js/*.js', 'src/js/**/*.js', '!src/js/settings/*.js'])
         .pipe(concat('scripts.js'))
         .pipe(uglify())
         .pipe(rename('scripts.min.js'))
         .pipe(gulp.dest('dist/scripts'));
+});
+
+gulp.task('unique-scripts', function () {
+    return gulp.src('src/js/settings/*.js')
+        .pipe(uglify())
+        .pipe(rename('settings.min.js'))
+        .pipe(gulp.dest('dist/scripts/settings'));
 });
 
 // Convience and for cleaning dist before rebuild, not ASYNC
