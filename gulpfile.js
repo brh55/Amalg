@@ -5,7 +5,7 @@ var sass        = require('gulp-sass');
 var minifyCss   = require('gulp-cssnano');
 var wiredep     = require('wiredep').stream;
 var config      = require('./config/config');
-var minifyJs    = require('gulp-minify');
+var uglify      = require('gulp-uglify');
 var rename      = require('gulp-rename');
 var concat      = require('gulp-concat');
 var clean       = require('gulp-clean');
@@ -35,7 +35,7 @@ gulp.task('assets', function () {
 gulp.task('scripts', function () {
     return gulp.src(['src/js/*.js', 'src/js/**/*.js'])
         .pipe(concat('scripts.js'))
-        .pipe(minifyJs())
+        .pipe(uglify())
         .pipe(rename('scripts.min.js'))
         .pipe(gulp.dest('dist/scripts'));
 });
