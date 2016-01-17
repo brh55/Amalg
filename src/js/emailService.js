@@ -1,7 +1,7 @@
 var GmailUrl = "https://mail.google.com/mail/?view=cm&fs=1&tf=1";
-var title = '';
 var url = '';
-var selectedText = '';
+
+//Open Gmail in new window and inset newsletter template into body of email
 
 var createGmail = function () {
     var body = '';

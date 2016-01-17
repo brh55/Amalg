@@ -8,26 +8,13 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 });
 
+//Detect click and amalgamate newsletter in local storage
 
 chrome.extension.onRequest.addListener(
   function(connectionInfo) {
-    // Find way to push to local storage
+    // Push to local storage
     var article = helpers.buildArticle();
 	localStorage.setItem('Article', JSON.stringify(article));
-    createGmail();
-});
-
-// From = <whatever gmail account is logged in;
-//         If not logged in, redirects to login page>
-// To = <Unfilled>
-// Subject = [Interesting Page] <Page's Title>
-// Body = Summary Selection + URL
-
-chrome.browserAction.onClicked.addListener(
-  function(tab) {
-    chrome.tabs.executeScript(null, {file: "infopasser.js"});
-    title = tab.title;
-    url = tab.url;
 });
 
 
