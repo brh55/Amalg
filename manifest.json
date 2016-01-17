@@ -21,7 +21,17 @@
         "<all_urls>"
       ],
       "js":[
-        "dist/scripts/scripts.min.js"
+        "dist/js/scripts.min.js"
+      ],
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "https://mail.google.com/mail/*su=Amalg:+Newsletter"
+      ],
+      "js":[
+        "bower_components/arrive/minified/arrive.min.js",
+        "dist/js/emailController.js"
       ],
       "run_at": "document_end"
     }
