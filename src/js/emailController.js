@@ -14,6 +14,7 @@ var fetchEmails = function () {
 		} else {
 			console.log("No articles exists");
 		}
+		console.log(result);
 	});
 };
 
@@ -32,6 +33,9 @@ var buildHtml = function () {
 	return htmlString;
 };
 
+fetchEmails();
+
 setTimeout(function () {
 	document.getElementById(':ny').innerHTML = buildHtml();
 }, 6000);
+

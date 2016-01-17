@@ -48,7 +48,7 @@ gulp.task('scripts', ['unique-scripts'], function () {
 });
 
 gulp.task('unique-scripts', function () {
-    return gulp.src(['src/js/settings/*.js', 'src/js/emailController.js', 'src/js/metaController.js'])
+    return gulp.src(['src/js/settings/*.js', 'src/js/emailController.js', 'src/js/metaController.js', 'src/js/background.js'])
         .pipe(uglify())
         .pipe(gulp.dest('dist/js'));
 });

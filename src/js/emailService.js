@@ -19,7 +19,6 @@ var createGmail = function () {
 
 var updateStorage = function () {
     chrome.storage.local.get('articles', function (result) {
-        console.log(JSON.stringify(result));
         var currentArticles = result;
         var articleObj = Object.create(currentArticles, {
             articles: {
@@ -27,8 +26,6 @@ var updateStorage = function () {
             }
         });
         var tempArticle = helpers.buildArticle();
-        console.log(JSON.stringify(tempArticle));
-        console.log(JSON.stringify(articleObj));
 
         articleObj.articles.push(tempArticle);
         chrome.storage.local.set({

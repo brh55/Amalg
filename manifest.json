@@ -14,8 +14,22 @@
     "https://ajax.googleapis.com/",
     "storage"
   ],
+  "background": {
+    "persistent": false,
+    "scripts": ["dist/js/background.js"]
+  },
   "options_page": "dist/views/settings.html",
   "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js":[
+        "dist/js/metaController.js",
+        "src/js/content.js"
+      ],
+      "run_at": "document_end"
+    },
     {
       "matches": [
         "https://mail.google.com/mail/*su=Amalg:+Newsletter"

@@ -76,7 +76,7 @@ var helpers = {
 	}
 };
 
-var updateStorage = function () {
+var updateStorage = function (tab) {
     chrome.storage.local.get('articles', function (result) {
         var currentArticles = result;
         var articleObj = Object.create(currentArticles, {
@@ -84,7 +84,7 @@ var updateStorage = function () {
                 value: ['test']
             }
         });
-        var tempArticle = helpers.buildArticle();
+        var tempArticle = helpers.buildArticle(tab);
 
         articleObj.articles.push(tempArticle);
         chrome.storage.local.set({
@@ -92,5 +92,3 @@ var updateStorage = function () {
         });
     });
 };
-
-updateStorage();
