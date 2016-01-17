@@ -54,16 +54,16 @@ var helpers = {
 	/**
 	 * Build article object
 	 */
-	buildArticle: function () {
+	buildArticle: function (tab) {
 		var tempArticle = Object.create(articleModel, {
 			title: {
-				value: helpers.getMetaContent('title') || ''
+				value: helpers.getMetaContent('title') || tab.title || ''
 			},
 			description: {
 				value: helpers.getDescription()
 			},
 			link: {
-				value: window.location.href
+				value: tab.url || window.location.href
 			},
 			author: {
 				value: helpers.getMetaContent('author') || ''
@@ -72,7 +72,25 @@ var helpers = {
 				value: helpers.getMetaContent('thumbnail') || ''
 			}
 		});
-
 		return tempArticle;
 	}
 };
+
+var updateStorage = function () {
+    chrome.storage.local.get('articles', function (result) {
+        var currentArticles = result;
+        var articleObj = Object.create(currentArticles, {
+            articles: {
+                value: ['test']
+            }
+        });
+        var tempArticle = helpers.buildArticle();
+
+        articleObj.articles.push(tempArticle);
+        chrome.storage.local.set({
+            'articles': articleObj
+        });
+    });
+};
+
+updateStorage();

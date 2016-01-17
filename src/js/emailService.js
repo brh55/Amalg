@@ -3,10 +3,9 @@ var url = '';
 
 //Open Gmail in new window and inset newsletter template into body of email
 
-function createGmail() {
+var createGmail = function () {
     var body = '';
-    var subject = 'Amalg:Newsletter';
-    var retrievedObject = localStorage.getItem('Article');
+    var subject = 'Amalg: Newsletter';
 
     chrome.windows.create({
         url: GmailUrl +
@@ -16,7 +15,24 @@ function createGmail() {
         width: 700,
         height: 600
     });
-	
-	//DOM body thing
-	
-}
+};
+
+var updateStorage = function () {
+    chrome.storage.local.get('articles', function (result) {
+        console.log(JSON.stringify(result));
+        var currentArticles = result;
+        var articleObj = Object.create(currentArticles, {
+            articles: {
+                value: []
+            }
+        });
+        var tempArticle = helpers.buildArticle();
+        console.log(JSON.stringify(tempArticle));
+        console.log(JSON.stringify(articleObj));
+
+        articleObj.articles.push(tempArticle);
+        chrome.storage.local.set({
+            'articles': articleObj
+        });
+    });
+};

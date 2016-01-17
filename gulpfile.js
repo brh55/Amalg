@@ -33,18 +33,24 @@ gulp.task('assets', function () {
 });
 
 gulp.task('scripts', ['unique-scripts'], function () {
-    return gulp.src(['src/js/*.js', 'src/js/**/*.js', '!src/js/settings/*.js'])
+    return gulp.src([
+        'src/js/metaController.js',
+        'src/js/emailService.js',
+        'src/js/*.js',
+        'src/js/listeners.js',
+        '!src/js/settings/*.js',
+        '!src/js/emailController.js'
+    ])
         .pipe(concat('scripts.js'))
-        .pipe(uglify())
+        //.pipe(uglify()) Uncomment when ready
         .pipe(rename('scripts.min.js'))
-        .pipe(gulp.dest('dist/scripts'));
+        .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('unique-scripts', function () {
-    return gulp.src('src/js/settings/*.js')
+    return gulp.src(['src/js/settings/*.js', 'src/js/emailController.js', 'src/js/metaController.js'])
         .pipe(uglify())
-        .pipe(rename('settings.min.js'))
-        .pipe(gulp.dest('dist/scripts/settings'));
+        .pipe(gulp.dest('dist/js'));
 });
 
 // Convience and for cleaning dist before rebuild, not ASYNC

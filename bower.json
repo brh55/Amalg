@@ -22,5 +22,8 @@
   ],
   "dependencies": {
     "jquery": "~2.2.0"
+  },
+  "devDependencies": {
+    "arrive": "~2.3.0"
   }
 }
