@@ -4,8 +4,8 @@
   "description": "Newsletters amalgamation to generate quick, readable cards for your followers",
   "version": "0.0.1",
   "browser_action": {
-    "default_icon": "assets/amalg-icon.png",
-    "default_popup": "popup.html",
+    "default_icon": "dist/assets/amalg-icon.png",
+    "default_popup": "dist/index.html",
     "default_title": "Create Newsletter"
   },
   "permissions": [
@@ -19,7 +19,7 @@
         "<all_urls>"
       ],
       "js":[
-        "bower_components/jquery/dist/jquery.js"
+        "dist/scripts/scripts.min.js"
       ],
       "run_at": "document_end"
     }

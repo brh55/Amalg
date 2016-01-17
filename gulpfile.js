@@ -8,25 +8,28 @@ var config      = require('./config/config');
 var minifyJs    = require('gulp-minify');
 var rename      = require('gulp-rename');
 var concat      = require('gulp-concat');
+var clean       = require('gulp-clean');
+var runSequence = require('run-sequence');
 
 // Simple Sass build task
 gulp.task('sass', function () {
-    return gulp.src('src/styles/scss/*.scss')
+    return gulp.src('src/styles/master.scss')
         .pipe(sass().on('error', sass.logError))
         // Minify CSS
         .pipe(minifyCss())
+        .pipe(rename('styles.min.css'))
         .pipe(gulp.dest('dist/css'));
 });
 
 gulp.task('bower', function () {
-    gulp.src('./src/views/*.html')
-        .pipe(wired(config.wiredepConfigs))
-        .pipe(gulp.dest('dist/views'));
+    gulp.src('./src/*.html')
+        .pipe(wiredep(config.wiredepConfigs))
+        .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('assets', function () {
     return gulp.src('src/**/*.{png,svg,jpg}')
-        .pipe(gulp.dest('dist/assests'));
+        .pipe(gulp.dest('dist'));
 });
 
 gulp.task('scripts', function () {
@@ -37,11 +40,22 @@ gulp.task('scripts', function () {
         .pipe(gulp.dest('dist/scripts'));
 });
 
+// Convience and for cleaning dist before rebuild, not ASYNC
+gulp.task('clean', function () {
+    return gulp.src('dist', {
+        read: false
+    })
+    .pipe(clean());
+});
+
 // All mighty serve task
 gulp.task('serve', function () {
     gulp.watch('src/styles/**/*.scss', ['sass']);
-    gulp.watch('src/scripts/**/*.js', ['scripts']);
+    gulp.watch('src/js/**/*.js', ['scripts']);
 });
 
-gulp.task('build', ['sass', 'assets', 'scripts']);
+gulp.task('build', function() {
+    runSequence('clean', ['sass', 'assets', 'bower', 'scripts']);
+});
+
 gulp.task('default', ['dev']);

@@ -1,18 +1,6 @@
-# JYF
+# Amalg
+Initially developed for DragonHacks 2016
 
-![](JYF-logo.png)
-
-
-Contributors:
-
-- Ming Chris Luo
-- Tarik Clay
-- Zarin Bhuiyan
+Authors:
+- Brandon Him
 - Nikin Tharan
-
-
-###Example of data grabbed from indico
-
-![](assets/screen1.png)
-
-![](assets/screen2.png)
