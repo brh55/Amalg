@@ -6,8 +6,7 @@ var url = '';
 function createGmail() {
     var body = '';
     var subject = 'Amalg:Newsletter';
-    //var retrievedObject = localStorage.getItem('Article');
-	console.log("Test whatever2");
+    var retrievedObject = localStorage.getItem('Article');
 
     chrome.windows.create({
         url: GmailUrl +
