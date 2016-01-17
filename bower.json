@@ -1,0 +1,23 @@
+{
+  "name": "amalg",
+  "description": "Curate Newsletters for Followers and Fans",
+  "main": "gulpfile.js",
+  "authors": [
+    "Nikkin Tharan and Brandon Him"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "chrome",
+    "extensions"
+  ],
+  "homepage": "https://github.com/brh55/Amalg",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

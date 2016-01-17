@@ -1,0 +1,27 @@
+{
+  "name": "amalg",
+  "version": "0.0.1",
+  "description": "Curate Newsletters for Followers and Fans",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"No test currently developed\" && exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brh55/Amalg.git"
+  },
+  "author": "Nikkin Tharan and Brandon Him",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brh55/Amalg/issues"
+  },
+  "homepage": "https://github.com/brh55/Amalg#readme",
+  "devDependencies": {
+    "autoprefixer": "^6.3.1",
+    "gulp": "^3.9.0",
+    "gulp-minify": "0.0.5",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.1.1",
+    "wiredep": "^3.0.0"
+  }
+}
