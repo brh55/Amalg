@@ -3,10 +3,11 @@ var url = '';
 
 //Open Gmail in new window and inset newsletter template into body of email
 
-var createGmail = function () {
+function createGmail() {
     var body = '';
     var subject = 'Amalg:Newsletter';
-    var retrievedObject = localStorage.getItem('Article');
+    //var retrievedObject = localStorage.getItem('Article');
+	console.log("Test whatever2");
 
     chrome.windows.create({
         url: GmailUrl +
@@ -19,4 +20,4 @@ var createGmail = function () {
 	
 	//DOM body thing
 	
-};
+}
