@@ -13,8 +13,8 @@ chrome.extension.onRequest.addListener(
   function(connectionInfo) {
     // Find way to push to local storage
     var article = helpers.buildArticle();
-    // Pull localstorage and create Q string to gmail window
-    createGmail(selectedText);
+	localStorage.setItem('Article', JSON.stringify(article));
+    createGmail();
 });
 
 // From = <whatever gmail account is logged in;

@@ -3,24 +3,20 @@ var title = '';
 var url = '';
 var selectedText = '';
 
-var createGmail = function (summary) {
+var createGmail = function () {
     var body = '';
-    var subject = '';
-    subject += title;
-
-    if (summary == '') {
-        body = url;
-    } else {
-        body = summary + '\n' + url;
-    }
+    var subject = 'Amalg:Newsletter';
+    var retrievedObject = localStorage.getItem('Article');
 
     chrome.windows.create({
         url: GmailUrl +
-            '&su=' + encodeURIComponent(subject) +
-            '&body=' + encodeURIComponent(body),
+            '&su=' + encodeURIComponent(subject),
         left: 20,
         top: 30,
         width: 700,
         height: 600
     });
+	
+	//DOM body thing
+	
 };
