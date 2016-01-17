@@ -1,0 +1,34 @@
+<!doctype html>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Amalg - Newsletter Currator</title>
+		<link rel="stylesheet" href="css/styles.min.css">
+	</head>
+	<body>
+		<h1>Current Built Newsletter</h1>
+
+		<!-- Graphs -->
+		<div id="sentsection">
+			<h1 align="center">Currentl</h1>
+			<div class="status"></div>
+			<div align="center" class="graph-wrapper">
+				<div class="graph-info">
+					<a href="javascript:void(0)" class="returning">Status Sentiments</a>
+					<a href="#" id="bars"><span>Bar</span></a>
+					<a href="#" id="lines" class="active"><span>Line</span></a>
+				</div>
+				<div class="graph-container">
+					<div class="graph-lines"></div>
+					<div class="graph-bars"></div>
+				</div>
+		</div>
+
+		<script src="js/bundle.js"></script>
+	</body>
+</html>
