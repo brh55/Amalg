@@ -10,22 +10,46 @@ var articleModel = {
 	image: ''
 };
 
-	getMetaContent: function (var_name) {
-		var code = 'var meta = document.querySelector("meta[name=\''+var_name+'\']");' + 
-           'if (meta) meta = meta.getAttribute("content");' +
-           '({' +
-           '    title: document.title,' +
-           '    description: meta || ""' +
-           '});';
-		chrome.tabs.executeScript({
-		code: code
-		}, function(results) {
+var helpers = {
+	/**
+	 * Returns and updates model with Meta data
+	 * @return {object} Model contains Meta data of document
+	 */
+	fetchMetaData: function () {
+		return document.getElementsByName('meta');
+	},
 
-		var result = results[0];
-        return result.description;
-	});
-	return 0;
-	}
+	getMetaContent: function (name) {
+		var metaArray = document.getElementsByName(name);
+		if (metaArray.length > 0) {
+			return metaArray[0].content;
+		}
+
+		return false;
+	},
+
+	/**
+	 * Returns and updates existing model of images
+	 * @return {object} Image updated into global model
+	 */
+	fetchImages: function () {
+		return document.getElementsByTagName('img');
+	},
+
+	/**
+	 * Return Description
+	 */
+	getDescription: function () {
+		var description = document.getElementsByName('description') ||
+							document.getElementsByName('abstract') ||
+							document.getElementsByName('summary');
+
+	 	if (description.length > 0) {
+	 		return description[0].content;
+	 	} else {
+	 		return 'Description not available.';
+	 	}
+	},
 
 	/**
 	 * Build article object
@@ -33,21 +57,22 @@ var articleModel = {
 	buildArticle: function () {
 		var tempArticle = Object.create(articleModel, {
 			title: {
-				value: getMetaContent('twitter:title')
+				value: helpers.getMetaContent('title') || ''
 			},
-			summary: {
-				value:  getMetaContent('twitter:description')
+			description: {
+				value: helpers.getDescription()
 			},
 			link: {
-				value: getMetaContent('twitter:domain')
+				value: window.location.href
 			},
 			author: {
-				value: getMetaContent('twitter:creator')
+				value: helpers.getMetaContent('author') || ''
 			},
 			image: {
-				value: getMetaContent('twitter:image:src')
+				value: helpers.getMetaContent('thumbnail') || ''
 			}
 		});
 
 		return tempArticle;
 	}
+};
