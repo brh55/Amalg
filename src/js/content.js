@@ -93,6 +93,20 @@ var updateStorage = function (tab) {
     });
 };
 
+var updateStorageNews = function (newArticle) {
+  console.log('test');
+  console.log(newArticle);
+    chrome.storage.local.get('articles', function (result) {
+        var currentArticles = result;
+        var articleObj = {
+          articles: []
+        };
+
+        articleObj.articles.push(newArticle);
+        chrome.storage.local.set(articleObj);
+        console.log('successfully updated local');
+    });
+};
 
 // Inform the background page that 
 // this tab should have a page-action
@@ -113,7 +127,7 @@ chrome.runtime.onMessage.addListener(function (msg, sender, response) {
 
     // Directly respond to the sender (popup), 
     // through the specified callback */
-    console.log(domInfo);
+    updateStorageNews(domInfo);
     response(domInfo);
   }
 });
