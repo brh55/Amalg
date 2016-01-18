@@ -16,20 +16,3 @@ var createGmail = function () {
         height: 600
     });
 };
-
-var updateStorage = function () {
-    chrome.storage.local.get('articles', function (result) {
-        var currentArticles = result;
-        var articleObj = Object.create(currentArticles, {
-            articles: {
-                value: []
-            }
-        });
-        var tempArticle = helpers.buildArticle();
-
-        articleObj.articles.push(tempArticle);
-        chrome.storage.local.set({
-            'articles': articleObj
-        });
-    });
-};

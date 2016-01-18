@@ -10,6 +10,12 @@ var articleModel = {
 	image: ''
 };
 
+/**
+ * Reference to chrome.storage.sync
+ * @type {object}
+ */
+var storage = chrome.storage.sync;
+
 var helpers = {
 	/**
 	 * Returns and updates model with Meta data
@@ -21,6 +27,7 @@ var helpers = {
 
 	getMetaContent: function (name) {
 		var metaArray = document.getElementsByName(name);
+		console.log(metaArray);
 		if (metaArray.length > 0) {
 			return metaArray[0].content;
 		}
@@ -55,40 +62,51 @@ var helpers = {
 	 * Build article object
 	 */
 	buildArticle: function (tab) {
+		var title = helpers.getMetaContent('title') || '';
+		var link = window.location.href;
+		var author = helpers.getMetaContent('author') || '';
+		var image = helpers.getMetaContent('thumbnail') || '';
+
 		var tempArticle = Object.create(articleModel, {
 			title: {
-				value: helpers.getMetaContent('title') || tab.title || ''
+				value: title
 			},
 			description: {
 				value: helpers.getDescription()
 			},
 			link: {
-				value: tab.url || window.location.href
+				value: link
 			},
 			author: {
-				value: helpers.getMetaContent('author') || ''
+				value: author
 			},
 			image: {
-				value: helpers.getMetaContent('thumbnail') || ''
+				value: image
 			}
 		});
+		console.log(tempArticle);
 		return tempArticle;
+	},
+
+	/**
+	 * Takes in a new Article and passes it to storage
+	 * @param  {object} newArticle Article containing metaData
+	 */
+	updateStorage: function (newArticle) {
+		console.log('Activated Storage: ' + newArticle);
+	    storage.get('articles', function (result) {
+	        var currentArticles = result;
+	        console.log('the result is' + result);
+	        var articleObj = Object.create(currentArticles, {
+	            articles: {
+	                value: []
+	            }
+	        });
+
+	        console.log(articleObj);
+	        articleObj.articles.push(newArticle);
+	        chrome.storage.local.set(articleObj);
+	        console.log('successfully updated local');
+	    });
 	}
-};
-
-var updateStorage = function (tab) {
-    chrome.storage.local.get('articles', function (result) {
-        var currentArticles = result;
-        var articleObj = Object.create(currentArticles, {
-            articles: {
-                value: ['test']
-            }
-        });
-        var tempArticle = helpers.buildArticle(tab);
-
-        articleObj.articles.push(tempArticle);
-        chrome.storage.local.set({
-            'articles': articleObj
-        });
-    });
 };

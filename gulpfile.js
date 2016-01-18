@@ -32,14 +32,15 @@ gulp.task('assets', function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('scripts', ['unique-scripts'], function () {
+gulp.task('scripts', ['unique-scripts', 'content-scripts'], function () {
     return gulp.src([
         'src/js/metaController.js',
         'src/js/emailService.js',
         'src/js/*.js',
         'src/js/listeners.js',
         '!src/js/settings/*.js',
-        '!src/js/emailController.js'
+        '!src/js/emailController.js',
+        '!src/js/content.js'
     ])
         .pipe(concat('scripts.js'))
         //.pipe(uglify()) Uncomment when ready
@@ -48,7 +49,14 @@ gulp.task('scripts', ['unique-scripts'], function () {
 });
 
 gulp.task('unique-scripts', function () {
-    return gulp.src(['src/js/settings/*.js', 'src/js/emailController.js', 'src/js/metaController.js', 'src/js/background.js'])
+    return gulp.src(['src/js/settings/*.js', 'src/js/emailController.js', 'src/js/background.js'])
+        .pipe(uglify())
+        .pipe(gulp.dest('dist/js'));
+});
+
+gulp.task('content-scripts', function () {
+    return gulp.src(['src/js/metaController.js', 'src/js/content.js'])
+        .pipe(concat('content.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('dist/js'));
 });
@@ -72,4 +80,4 @@ gulp.task('build', function() {
     runSequence('clean', ['sass', 'assets', 'bower', 'scripts']);
 });
 
-gulp.task('default', ['dev']);
+gulp.task('default', ['serve']);
